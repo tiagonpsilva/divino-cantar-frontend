@@ -249,9 +249,9 @@ export function AssistantView() {
   };
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-full flex flex-col max-h-full overflow-hidden">
       {/* Header */}
-      <div className="flex-shrink-0 p-4 lg:p-6 border-b border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
+      <div className="flex-shrink-0 p-3 lg:p-4 border-b border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
         <div className="flex items-center gap-3">
           <div className="p-2 lg:p-3 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl">
             <Bot size={20} className="lg:w-6 lg:h-6" />
@@ -267,41 +267,12 @@ export function AssistantView() {
         </div>
       </div>
 
-      {/* Sugestões Rápidas - Móvel no topo, Desktop na lateral */}
-      <div className="lg:hidden flex-shrink-0 p-4 bg-neutral-50 dark:bg-neutral-800/50 border-b border-neutral-200 dark:border-neutral-700">
-        <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-100 mb-3">
-          💡 Sugestões Rápidas
-        </h3>
-        <div className="grid grid-cols-2 gap-2">
-          {SUGGESTED_QUESTIONS.map(question => (
-            <button
-              key={question.id}
-              onClick={() => handleSuggestedQuestion(question.text)}
-              className="text-left p-3 bg-white dark:bg-neutral-700 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors"
-            >
-              <div className="flex items-start gap-2">
-                <div className="p-1 bg-neutral-100 dark:bg-neutral-600 rounded-lg">
-                  <question.icon size={12} className="text-neutral-600 dark:text-neutral-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-neutral-700 dark:text-neutral-100 text-xs leading-tight">
-                    {question.text}
-                  </p>
-                  <span className="inline-block px-1.5 py-0.5 bg-neutral-100 dark:bg-neutral-600 text-neutral-600 dark:text-neutral-400 text-xs rounded">
-                    {question.category}
-                  </span>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-hidden flex">
-        {/* Messages */}
-        <div className="flex-1 flex flex-col">
-          <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-3 lg:space-y-4">
+      <div className="flex-1 overflow-hidden flex min-h-0">
+        {/* Chat Container - Prioriza a experiência de conversa */}
+        <div className="flex-1 flex flex-col min-w-0 min-h-0">
+          <div className="flex-1 overflow-y-auto p-3 lg:p-4 space-y-3 lg:space-y-4 min-h-0">
             {messages.map((message) => (
               <div key={message.id} className={cn(
                 'flex gap-3 lg:gap-4 max-w-4xl',
@@ -446,8 +417,8 @@ export function AssistantView() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Area */}
-          <div className="flex-shrink-0 p-4 lg:p-6 border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
+          {/* Input Area - sempre visível */}
+          <div className="flex-shrink-0 p-3 lg:p-4 border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 relative z-10">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -474,51 +445,53 @@ export function AssistantView() {
           </div>
         </div>
 
-        {/* Sidebar with suggestions - apenas desktop */}
-        <div className="hidden lg:block w-80 border-l border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 p-4 overflow-y-auto">
-          <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100 mb-4">
-            💡 Sugestões
-          </h3>
-          <div className="space-y-2">
-            {SUGGESTED_QUESTIONS.map(question => (
-              <button
-                key={question.id}
-                onClick={() => handleSuggestedQuestion(question.text)}
-                className="w-full text-left p-3 bg-white dark:bg-neutral-700 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors group"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="p-1.5 bg-neutral-100 dark:bg-neutral-600 rounded-lg group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 transition-colors">
-                    <question.icon size={14} className="text-neutral-600 dark:text-neutral-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
+        {/* Sidebar com sugestões à direita - apenas desktop */}
+        <div className="hidden lg:block w-72 border-l border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 p-4 overflow-y-auto">
+          <div className="sticky top-4">
+            <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100 mb-4">
+              💡 Sugestões Rápidas
+            </h3>
+            <div className="space-y-2 mb-6">
+              {SUGGESTED_QUESTIONS.map(question => (
+                <button
+                  key={question.id}
+                  onClick={() => handleSuggestedQuestion(question.text)}
+                  className="w-full text-left p-3 bg-white dark:bg-neutral-700 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors group"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="p-1.5 bg-neutral-100 dark:bg-neutral-600 rounded-lg group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 transition-colors">
+                      <question.icon size={14} className="text-neutral-600 dark:text-neutral-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-neutral-700 dark:text-neutral-100 text-sm mb-1 leading-tight">
+                        {question.text}
+                      </p>
+                      <span className="inline-block px-2 py-0.5 bg-neutral-100 dark:bg-neutral-600 text-neutral-600 dark:text-neutral-400 text-xs rounded-md">
+                        {question.category}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-neutral-700 dark:text-neutral-100 text-sm mb-1 leading-tight">
-                      {question.text}
-                    </p>
-                    <span className="inline-block px-2 py-0.5 bg-neutral-100 dark:bg-neutral-600 text-neutral-600 dark:text-neutral-400 text-xs rounded-md">
-                      {question.category}
-                    </span>
-                  </div>
+                </button>
+              ))}
+            </div>
+            
+            <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700">
+              <h4 className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">
+                🎯 Comandos Rápidos
+              </h4>
+              <div className="space-y-2 text-xs">
+                <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <p className="text-blue-700 dark:text-blue-300 font-medium">"reproduzir [música]"</p>
+                  <p className="text-blue-600 dark:text-blue-400">Toca uma música específica</p>
                 </div>
-              </button>
-            ))}
-          </div>
-          
-          <div className="mt-6 pt-4 border-t border-neutral-200 dark:border-neutral-700">
-            <h4 className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">
-              🎯 Comandos Rápidos
-            </h4>
-            <div className="space-y-2 text-xs">
-              <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                <p className="text-blue-700 dark:text-blue-300 font-medium">"reproduzir [música]"</p>
-                <p className="text-blue-600 dark:text-blue-400">Toca uma música específica</p>
-              </div>
-              <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                <p className="text-green-700 dark:text-green-300 font-medium">"adicionar favoritos"</p>
-                <p className="text-green-600 dark:text-green-400">Marca músicas como favoritas</p>
-              </div>
-              <div className="p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                <p className="text-purple-700 dark:text-purple-300 font-medium">"exportar repertório"</p>
-                <p className="text-purple-600 dark:text-purple-400">Gera PDF do planejamento</p>
+                <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <p className="text-green-700 dark:text-green-300 font-medium">"adicionar favoritos"</p>
+                  <p className="text-green-600 dark:text-green-400">Marca músicas como favoritas</p>
+                </div>
+                <div className="p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                  <p className="text-purple-700 dark:text-purple-300 font-medium">"exportar repertório"</p>
+                  <p className="text-purple-600 dark:text-purple-400">Gera PDF do planejamento</p>
+                </div>
               </div>
             </div>
           </div>

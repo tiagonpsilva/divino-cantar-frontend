@@ -11,8 +11,9 @@ import { PlanningView } from './features/planning/PlanningView';
 import { ChordsView } from './features/chords/ChordsView';
 import { LibraryView } from './features/library/LibraryView';
 import { SettingsView } from './features/settings/SettingsView';
+import { MoreMenuView } from './features/more/MoreMenuView';
 
-type View = 'home' | 'assistant' | 'liturgy' | 'repertoire' | 'search' | 'planning' | 'chords' | 'library' | 'settings';
+type View = 'home' | 'assistant' | 'liturgy' | 'repertoire' | 'search' | 'planning' | 'chords' | 'library' | 'settings' | 'more';
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<View>('home');
@@ -38,6 +39,8 @@ function AppContent() {
         return <LibraryView />;
       case 'settings':
         return <SettingsView />;
+      case 'more':
+        return <MoreMenuView onNavigate={handleNavigate} />;
       default:
         return <HomeView />;
     }

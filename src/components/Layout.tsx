@@ -65,7 +65,7 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
     { id: 'assistant', icon: Bot, label: 'Assistente', color: 'text-emerald-600 dark:text-emerald-400' },
     { id: 'repertoire', icon: Music, label: 'Repertório', color: 'text-pink-600 dark:text-pink-400' },
     { id: 'search', icon: Search, label: 'Buscar', color: 'text-green-600 dark:text-green-400' },
-    { id: 'settings', icon: Settings, label: 'Mais', color: 'text-gray-600 dark:text-gray-400' },
+    { id: 'more', icon: Settings, label: 'Mais', color: 'text-gray-600 dark:text-gray-400' },
   ];
 
   const handleNavigate = (viewId: string) => {
