@@ -1,5 +1,20 @@
 # DivinoCantar
 
+[![GitHub repo](https://img.shields.io/badge/GitHub-tiagonpsilva%2Fdivino--cantar--frontend-blue?logo=github)](https://github.com/tiagonpsilva/divino-cantar-frontend)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
+
+[![React](https://img.shields.io/badge/React-18.0+-61DAFB?logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.0+-646CFF?logo=vite)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0+-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
+
+[![Model Context Protocol](https://img.shields.io/badge/MCP-Enabled-FF6B6B?logo=anthropic)](https://modelcontextprotocol.io/)
+[![Git Flow](https://img.shields.io/badge/Git--Flow-Enabled-F05032?logo=git)](https://nvie.com/posts/a-successful-git-branching-model/)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits)](https://conventionalcommits.org)
+[![Catholic Music](https://img.shields.io/badge/Catholic-Music%20Repertoire-gold?logo=music)](https://github.com/tiagonpsilva/divino-cantar-frontend)
+[![AI Assistant](https://img.shields.io/badge/AI-Assistant%20Enabled-purple?logo=robot)](https://github.com/tiagonpsilva/divino-cantar-frontend)
+
 Aplicação web para gerenciar repertório musical para celebrações católicas.
 
 ## 🚀 Como executar
