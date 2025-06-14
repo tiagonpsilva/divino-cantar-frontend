@@ -8,27 +8,27 @@ export function SettingsView() {
   const { success } = useToastContext();
   
   const handleProfileSave = (field: string, value: string) => {
-    updateProfile({ ...settings, [field]: value });
+    updateProfile({ [field]: value });
     success('Perfil atualizado com sucesso!');
   };
   
   const handleNotificationToggle = (field: string, value: boolean) => {
-    updateNotifications({ ...settings, [field]: value });
+    updateNotifications({ [field]: value });
     success('Configurações de notificação atualizadas!');
   };
   
   const handleAppearanceChange = (field: string, value: string) => {
-    updateAppearance({ ...settings, [field]: value });
+    updateAppearance({ [field]: value });
     success('Aparência atualizada!');
   };
   
   const handleAudioChange = (field: string, value: any) => {
-    updateAudio({ ...settings, [field]: value });
+    updateAudio({ [field]: value });
     success('Configurações de áudio atualizadas!');
   };
   
   const handleBehaviorChange = (field: string, value: boolean) => {
-    updateBehavior({ ...settings, [field]: value });
+    updateBehavior({ [field]: value });
     success('Comportamento atualizado!');
   };
 
