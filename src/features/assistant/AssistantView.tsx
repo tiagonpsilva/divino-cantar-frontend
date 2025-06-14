@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Music, Play, Pause, Plus, Edit, Trash2, Heart, Search, Calendar, Download, Users } from 'lucide-react';
+import { Send, Bot, User, Music, Play, Pause, Plus, Edit, Trash2, Heart, Search, Calendar, Download } from 'lucide-react';
 import { Card } from '../../components/Card';
 import { FavoriteButton } from '../../components/FavoriteButton';
 import { SongDetailModal } from '../../components/SongDetailModal';
@@ -29,51 +29,33 @@ interface MessageAction {
 const SUGGESTED_QUESTIONS = [
   {
     id: '1',
-    text: 'Quais músicas são ideais para a entrada da missa?',
+    text: 'Músicas para entrada da missa?',
     category: 'Repertório',
     icon: Music
   },
   {
     id: '2', 
-    text: 'Como transpor uma música para um tom mais fácil?',
+    text: 'Como transpor tons?',
     category: 'Técnico',
     icon: Edit
   },
   {
     id: '3',
-    text: 'Quais são as cores litúrgicas do ano?',
+    text: 'Cores litúrgicas do ano?',
     category: 'Liturgia',
     icon: Search
   },
   {
     id: '4',
-    text: 'Crie um repertório para o Domingo de Ramos',
-    category: 'Planejamento',
-    icon: Plus
-  },
-  {
-    id: '5',
-    text: 'Mostre minhas músicas favoritas',
-    category: 'Pessoal',
-    icon: Heart
-  },
-  {
-    id: '6',
-    text: 'Sugestões para missa de Natal',
+    text: 'Repertório para Natal?',
     category: 'Planejamento',
     icon: Calendar
   },
   {
-    id: '7',
-    text: 'Músicas para comunhão contemplativa',
-    category: 'Repertório',
-    icon: Music
-  },
-  {
-    id: '8',
-    text: 'Como organizar um ensaio musical?',
-    category: 'Prático',
-    icon: Users
+    id: '5',
+    text: 'Minhas favoritas',
+    category: 'Pessoal',
+    icon: Heart
   }
 ];
 
@@ -269,19 +251,49 @@ export function AssistantView() {
   return (
     <div className="h-screen flex flex-col">
       {/* Header */}
-      <div className="flex-shrink-0 p-6 border-b border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
+      <div className="flex-shrink-0 p-4 lg:p-6 border-b border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl">
-            <Bot size={24} />
+          <div className="p-2 lg:p-3 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl">
+            <Bot size={20} className="lg:w-6 lg:h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-neutral-700 dark:text-neutral-100">
+            <h1 className="text-lg lg:text-2xl font-bold text-neutral-700 dark:text-neutral-100">
               Assistente Musical
             </h1>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400">
               Seu guia inteligente para repertório e liturgia
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Sugestões Rápidas - Móvel no topo, Desktop na lateral */}
+      <div className="lg:hidden flex-shrink-0 p-4 bg-neutral-50 dark:bg-neutral-800/50 border-b border-neutral-200 dark:border-neutral-700">
+        <h3 className="text-sm font-semibold text-neutral-700 dark:text-neutral-100 mb-3">
+          💡 Sugestões Rápidas
+        </h3>
+        <div className="grid grid-cols-2 gap-2">
+          {SUGGESTED_QUESTIONS.map(question => (
+            <button
+              key={question.id}
+              onClick={() => handleSuggestedQuestion(question.text)}
+              className="text-left p-3 bg-white dark:bg-neutral-700 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors"
+            >
+              <div className="flex items-start gap-2">
+                <div className="p-1 bg-neutral-100 dark:bg-neutral-600 rounded-lg">
+                  <question.icon size={12} className="text-neutral-600 dark:text-neutral-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-neutral-700 dark:text-neutral-100 text-xs leading-tight">
+                    {question.text}
+                  </p>
+                  <span className="inline-block px-1.5 py-0.5 bg-neutral-100 dark:bg-neutral-600 text-neutral-600 dark:text-neutral-400 text-xs rounded">
+                    {question.category}
+                  </span>
+                </div>
+              </div>
+            </button>
+          ))}
         </div>
       </div>
 
@@ -289,27 +301,27 @@ export function AssistantView() {
       <div className="flex-1 overflow-hidden flex">
         {/* Messages */}
         <div className="flex-1 flex flex-col">
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-3 lg:space-y-4">
             {messages.map((message) => (
               <div key={message.id} className={cn(
-                'flex gap-4 max-w-4xl',
+                'flex gap-3 lg:gap-4 max-w-4xl',
                 message.type === 'user' ? 'ml-auto flex-row-reverse' : ''
               )}>
                 <div className={cn(
-                  'flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center',
+                  'flex-shrink-0 w-8 h-8 lg:w-10 lg:h-10 rounded-2xl flex items-center justify-center',
                   message.type === 'user' 
                     ? 'bg-primary-600 text-white' 
                     : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400'
                 )}>
-                  {message.type === 'user' ? <User size={20} /> : <Bot size={20} />}
+                  {message.type === 'user' ? <User size={16} className="lg:w-5 lg:h-5" /> : <Bot size={16} className="lg:w-5 lg:h-5" />}
                 </div>
                 
                 <div className={cn(
-                  'flex-1 space-y-3',
+                  'flex-1 space-y-2 lg:space-y-3',
                   message.type === 'user' ? 'text-right' : ''
                 )}>
                   <div className={cn(
-                    'inline-block p-4 rounded-2xl max-w-2xl',
+                    'inline-block p-3 lg:p-4 rounded-2xl max-w-2xl',
                     message.type === 'user'
                       ? 'bg-primary-600 text-white'
                       : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100'
@@ -417,11 +429,11 @@ export function AssistantView() {
             ))}
 
             {isTyping && (
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
-                  <Bot size={20} className="text-neutral-600 dark:text-neutral-400" />
+              <div className="flex gap-3 lg:gap-4">
+                <div className="flex-shrink-0 w-8 h-8 lg:w-10 lg:h-10 rounded-2xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                  <Bot size={16} className="lg:w-5 lg:h-5 text-neutral-600 dark:text-neutral-400" />
                 </div>
-                <div className="bg-neutral-100 dark:bg-neutral-700 p-4 rounded-2xl">
+                <div className="bg-neutral-100 dark:bg-neutral-700 p-3 lg:p-4 rounded-2xl">
                   <div className="flex gap-1">
                     <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                     <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -435,35 +447,35 @@ export function AssistantView() {
           </div>
 
           {/* Input Area */}
-          <div className="flex-shrink-0 p-6 border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
+          <div className="flex-shrink-0 p-4 lg:p-6 border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSendMessage(inputMessage);
               }}
-              className="flex gap-3"
+              className="flex gap-2 lg:gap-3"
             >
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Digite sua pergunta sobre repertório, liturgia ou música..."
-                className="flex-1 px-4 py-3 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex-1 px-3 py-2 lg:px-4 lg:py-3 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm lg:text-base"
                 disabled={isTyping}
               />
               <button
                 type="submit"
                 disabled={!inputMessage.trim() || isTyping}
-                className="px-6 py-3 bg-primary-600 text-white rounded-2xl hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 lg:px-6 lg:py-3 bg-primary-600 text-white rounded-2xl hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Send size={20} />
+                <Send size={16} className="lg:w-5 lg:h-5" />
               </button>
             </form>
           </div>
         </div>
 
-        {/* Sidebar with suggestions */}
-        <div className="w-80 border-l border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 p-4 overflow-y-auto">
+        {/* Sidebar with suggestions - apenas desktop */}
+        <div className="hidden lg:block w-80 border-l border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 p-4 overflow-y-auto">
           <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100 mb-4">
             💡 Sugestões
           </h3>
