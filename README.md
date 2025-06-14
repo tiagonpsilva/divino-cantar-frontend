@@ -48,6 +48,33 @@ npm run dev
 - TailwindCSS
 - Lucide Icons
 
+## 🔗 Model Context Protocol (MCP) Integration
+
+Este projeto está integrado com o Model Context Protocol para facilitar o desenvolvimento e manutenção através do Claude Code.
+
+### Configuração MCP
+
+O projeto está configurado com os seguintes servidores MCP:
+
+- **GitHub MCP**: Integração completa com repositórios GitHub
+- **Claude GitHub MCP**: Ferramentas específicas para desenvolvimento  
+- **Docker MCP**: Suporte para containerização
+
+### Funcionalidades MCP Disponíveis
+
+- ✅ Criação e gestão de issues no GitHub
+- ✅ Pull requests automatizados
+- ✅ Análise de código e revisões
+- ✅ Sincronização com repositório remoto
+- ✅ Gestão de branches e merges
+- ✅ Deployment automatizado
+
+### Repository
+
+- **GitHub**: [tiagonpsilva/divino-cantar-frontend](https://github.com/tiagonpsilva/divino-cantar-frontend)
+- **Branch principal**: `main`
+- **Git-flow**: Configurado com branches `develop`, `feature/*`, `release/*`, `hotfix/*`
+
 ## 📱 Experiência do Usuário
 
 - Interface limpa e minimalista

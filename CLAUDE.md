@@ -211,3 +211,60 @@ When implementing, create mock data for:
 - Cifras (chord charts with transposition)
 - Playlists (collections for specific dates)
 - Compartilhamentos (sharing history)
+
+## GitHub Integration & Model Context Protocol (MCP)
+
+### Repository Setup
+- **GitHub Repository**: https://github.com/tiagonpsilva/divino-cantar-frontend
+- **Remote Origin**: `git@github.com:tiagonpsilva/divino-cantar-frontend.git`
+- **Main Branch**: `main`
+
+### Model Context Protocol Configuration
+The project is configured with MCP servers for enhanced development experience through Claude Code.
+
+**Claude Desktop Configuration** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "github-mcp-custom"],
+      "env": {
+        "GITHUB_TOKEN": "[Your GitHub Personal Access Token]"
+      }
+    },
+    "claude-github": {
+      "command": "npx", 
+      "args": ["-y", "claude-github-mcp"],
+      "env": {
+        "GITHUB_TOKEN": "[Your GitHub Personal Access Token]"
+      }
+    }
+  }
+}
+```
+
+### Available MCP Tools & Features
+- ✅ **Issue Management**: Create, update, and track GitHub issues
+- ✅ **Pull Request Automation**: Generate PR descriptions and manage reviews
+- ✅ **Code Analysis**: Automated code review and quality checks
+- ✅ **Repository Sync**: Real-time synchronization with remote repository
+- ✅ **Branch Management**: Create, merge, and manage Git-flow branches
+- ✅ **Release Management**: Automate release notes and versioning
+- ✅ **CI/CD Integration**: GitHub Actions workflow management
+
+### GitHub CLI Integration
+```bash
+# GitHub CLI is pre-configured and authenticated
+gh auth status
+gh repo view tiagonpsilva/divino-cantar-frontend
+gh issue list
+gh pr list
+```
+
+### MCP Development Workflow
+1. Use MCP tools to create feature branches
+2. Implement features with real-time GitHub integration
+3. Leverage MCP for automated PR creation and reviews
+4. Use GitHub MCP for issue tracking and project management
+5. Deploy using GitHub Actions (when configured)
