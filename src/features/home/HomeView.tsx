@@ -17,15 +17,43 @@ export function HomeView() {
 
   return (
     <div className="space-y-8">
-      {/* Welcome Section */}
-      <div>
-        <h1 className="text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
-          Bem-vindo ao DivinoCantar
-        </h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Gerencie seu repertório musical e planeje celebrações com facilidade
-        </p>
-      </div>
+      {/* Welcome Card */}
+      <Card className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20"></div>
+        <div className="relative">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="p-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl shadow-sm">
+              <Music className="text-primary-600 dark:text-primary-400" size={28} />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100">
+                  Olá! 👋
+                </h2>
+                <div className="flex gap-1">
+                  <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                  <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                </div>
+              </div>
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Seja bem-vindo ao seu espaço musical. Aqui você pode organizar repertórios, 
+                planejar celebrações e encontrar a música perfeita para cada momento especial.
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex items-center justify-between pt-4 border-t border-neutral-200/50 dark:border-neutral-700/50">
+            <div className="text-sm text-neutral-500 dark:text-neutral-400">
+              Que a música seja sua oração de hoje 🎵
+            </div>
+            <div className="flex items-center gap-2 text-xs text-neutral-400 dark:text-neutral-500">
+              <Star size={12} className="text-yellow-500" />
+              <span>Inspire-se</span>
+            </div>
+          </div>
+        </div>
+      </Card>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

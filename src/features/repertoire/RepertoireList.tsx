@@ -62,41 +62,13 @@ export function RepertoireList() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
-          <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
-            Repertório Musical
-          </h1>
-          <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400">
-            Organize suas músicas por momento da celebração
-          </p>
-        </div>
-        <div className="flex gap-2 flex-shrink-0">
-          <button 
-            onClick={() => exportRepertoireAsPDF(songs, 'repertorio-completo.pdf')}
-            className="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
-            title="Exportar PDF"
-          >
-            <Download size={18} className="lg:w-5 lg:h-5" />
-            <span className="hidden sm:inline">Exportar PDF</span>
-          </button>
-          <button 
-            onClick={() => setIsShareModalOpen(true)}
-            className="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
-            title="Compartilhar"
-          >
-            <Share2 size={18} className="lg:w-5 lg:h-5" />
-            <span className="hidden sm:inline">Compartilhar</span>
-          </button>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors"
-            title="Nova Música"
-          >
-            <Plus size={18} className="lg:w-5 lg:h-5" />
-            <span className="hidden sm:inline">Nova Música</span>
-          </button>
-        </div>
+      <div>
+        <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
+          Repertório Musical
+        </h1>
+        <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400">
+          Organize suas músicas por momento da celebração
+        </p>
       </div>
 
       {/* Quick Stats */}
@@ -117,6 +89,33 @@ export function RepertoireList() {
           <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">3</p>
           <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Artistas</p>
         </Card>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-center">
+        <div className="flex gap-3 p-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+          <button 
+            onClick={() => exportRepertoireAsPDF(songs, 'repertorio-completo.pdf')}
+            className="p-3 bg-white dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors shadow-sm"
+            title="Exportar PDF"
+          >
+            <Download size={20} />
+          </button>
+          <button 
+            onClick={() => setIsShareModalOpen(true)}
+            className="p-3 bg-white dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors shadow-sm"
+            title="Compartilhar"
+          >
+            <Share2 size={20} />
+          </button>
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="p-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors shadow-sm"
+            title="Nova Música"
+          >
+            <Plus size={20} />
+          </button>
+        </div>
       </div>
 
       {/* Songs by Moment */}
