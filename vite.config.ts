@@ -8,5 +8,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-  }
+  },
+  // Garantir que assets públicos sejam copiados corretamente
+  publicDir: 'public',
 })

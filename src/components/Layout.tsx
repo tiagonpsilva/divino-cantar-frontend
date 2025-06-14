@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Home, Music, Calendar, Search, BookOpen, Settings, FileText, Users, Sun, Moon, ChevronLeft, ChevronRight, Bot } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { cn } from '../lib/utils';
+import { getLogoPath } from '../utils/assets';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -67,7 +68,7 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
           {/* Center - Logo */}
           <div className="flex items-center justify-center w-1/2 h-full py-2 overflow-visible">
             <img 
-              src={isDarkMode ? '/images/logo-dark.png' : '/images/logo-light.png'} 
+              src={getLogoPath(isDarkMode)} 
               alt="DivinoCantar" 
               className="h-[calc(100%*3)] w-auto transform scale-100 origin-center"
               style={{ height: 'calc(100% * 3)' }}
