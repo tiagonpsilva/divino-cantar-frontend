@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Home, Music, Calendar, Search, BookOpen, Settings, FileText, Users, Sun, Moon, ChevronLeft, ChevronRight, Bot } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { cn } from '../lib/utils';
-import { getLogoPath } from '../utils/assets';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -68,7 +67,7 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
           {/* Center - Logo */}
           <div className="flex items-center justify-center w-1/2 h-full py-2 overflow-visible">
             <img 
-              src={getLogoPath(isDarkMode)} 
+              src={isDarkMode ? `${import.meta.env.BASE_URL}images/logo-dark.png` : `${import.meta.env.BASE_URL}images/logo-light.png`}
               alt="DivinoCantar" 
               className="h-[calc(100%*3)] w-auto transform scale-100 origin-center"
               style={{ height: 'calc(100% * 3)' }}
@@ -121,10 +120,9 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
                   <button
                     onClick={() => handleNavigate(item.id)}
                     className={cn(
-                      'w-full flex items-center rounded-2xl transition-all duration-200',
-                      // Mobile: sempre space-x-3 px-4 py-3, Desktop: depende de isMinimized
-                      'space-x-3 px-4 py-3 lg:space-x-0 lg:px-0 lg:py-0',
-                      isMinimized ? 'lg:justify-center lg:p-3' : 'lg:space-x-3 lg:px-4 lg:py-3',
+                      'w-full flex items-center rounded-2xl transition-all duration-200 space-x-3 px-4 py-3',
+                      // No desktop, aplicar estilos de minimização
+                      isMinimized && 'lg:justify-center lg:space-x-0 lg:p-3',
                       isActive
                         ? 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100 font-medium'
                         : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 hover:text-neutral-700 dark:hover:text-neutral-100'
@@ -136,10 +134,10 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
                         isActive ? item.color : 'text-neutral-400 dark:text-neutral-500'
                       )}
                     />
-                    {/* Mobile: sempre mostrar, Desktop: mostrar apenas se não minimizado */}
+                    {/* Sempre mostrar no mobile, no desktop mostrar apenas se não minimizado */}
                     <span className={cn(
-                      'block lg:hidden', // Sempre mostrar no mobile
-                      !isMinimized && 'lg:block' // Mostrar no desktop apenas se não minimizado
+                      'block',
+                      isMinimized && 'lg:hidden'
                     )}>
                       {item.label}
                     </span>
