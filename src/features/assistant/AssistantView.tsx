@@ -297,7 +297,7 @@ export function AssistantView() {
                       ? 'bg-primary-600 text-white'
                       : 'bg-gray-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 border border-gray-300 dark:border-neutral-600'
                   )}>
-                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    <p className="whitespace-pre-wrap text-sm">{message.content}</p>
                     <p className={cn(
                       'text-xs mt-2 opacity-70',
                       message.type === 'user' ? 'text-primary-100' : 'text-neutral-500 dark:text-neutral-400'
