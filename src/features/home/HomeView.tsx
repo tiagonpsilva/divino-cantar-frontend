@@ -17,6 +17,13 @@ export function HomeView() {
 
   return (
     <div className="space-y-8">
+      {/* Welcome Title */}
+      <div>
+        <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-6">
+          👋🏿 Olá!
+        </h1>
+      </div>
+
       {/* Welcome Card */}
       <Card className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20"></div>
@@ -26,9 +33,9 @@ export function HomeView() {
               <Music className="text-primary-600 dark:text-primary-400" size={28} />
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100">
-                  Olá! 👋
+              <div className="flex items-center gap-2 mb-3">
+                <h2 className="text-lg font-medium text-neutral-700 dark:text-neutral-100">
+                  Seja bem-vindo(a) ao <span className="font-bold">DivinoCantar</span>!
                 </h2>
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
@@ -37,8 +44,7 @@ export function HomeView() {
                 </div>
               </div>
               <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                Seja bem-vindo ao seu espaço musical. Aqui você pode organizar repertórios, 
-                planejar celebrações e encontrar a música perfeita para cada momento especial.
+                Aqui você pode organizar repertórios, planejar celebrações e encontrar a música perfeita para cada momento especial.
               </p>
             </div>
           </div>
