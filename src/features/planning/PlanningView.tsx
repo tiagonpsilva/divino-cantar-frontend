@@ -86,18 +86,21 @@ export function PlanningView() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
             Planejar Missa
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400">
             Monte o repertório completo para sua celebração
           </p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary-600 dark:bg-primary-500 text-white rounded-xl hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors">
-          <Plus size={20} />
-          Nova Celebração
+        <button 
+          className="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2 bg-primary-600 dark:bg-primary-500 text-white rounded-xl hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors flex-shrink-0"
+          title="Nova Celebração"
+        >
+          <Plus size={18} className="lg:w-5 lg:h-5" />
+          <span className="hidden sm:inline">Nova Celebração</span>
         </button>
       </div>
 

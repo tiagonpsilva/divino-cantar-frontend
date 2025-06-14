@@ -29,10 +29,10 @@ export function SearchView() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
+        <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
           Buscar Músicas
         </h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
+        <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400">
           Encontre a música perfeita para cada momento da celebração
         </p>
       </div>
@@ -80,43 +80,48 @@ export function SearchView() {
         
         {filteredSongs.map((song) => (
           <Card key={song.id} hover>
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <Music className="text-pink-600 dark:text-pink-400" size={20} />
-                  <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100">{song.title}</h3>
-                </div>
-                <p className="text-neutral-600 dark:text-neutral-400 mb-3">{song.artist}</p>
-                
-                <div className="flex items-center gap-4 text-sm">
-                  <div className="flex items-center gap-1 text-neutral-500 dark:text-neutral-400">
-                    <Clock size={16} />
-                    <span>{song.moments.join(', ')}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Tag size={16} className="text-neutral-500 dark:text-neutral-400" />
-                    <div className="flex gap-2">
-                      {song.tags.map((tag) => (
-                        <span key={tag} className="text-xs bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 px-2 py-1 rounded-lg">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+            <div className="space-y-3">
+              {/* Header com título e tom */}
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <Music className="text-pink-600 dark:text-pink-400 flex-shrink-0" size={20} />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100 truncate">{song.title}</h3>
+                    <p className="text-neutral-600 dark:text-neutral-400 truncate">{song.artist}</p>
                   </div>
                 </div>
-              </div>
-              
-              <div className="flex flex-col items-end gap-2">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <span className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2 py-1 rounded-lg font-medium">
+                    {song.tone}
+                  </span>
                   <FavoriteButton
                     isFavorite={isFavorite(song.id)}
                     onClick={() => toggleFavorite(song.id)}
                     size="sm"
                   />
-                  <span className="text-sm bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-3 py-1 rounded-lg font-medium">
-                    Tom: {song.tone}
-                  </span>
                 </div>
+              </div>
+              
+              {/* Informações secundárias */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400">
+                  <Clock size={14} className="flex-shrink-0" />
+                  <span className="truncate">{song.moments.join(', ')}</span>
+                </div>
+                <div className="flex items-start gap-1">
+                  <Tag size={14} className="text-neutral-500 dark:text-neutral-400 flex-shrink-0 mt-0.5" />
+                  <div className="flex gap-1 flex-wrap">
+                    {song.tags.map((tag) => (
+                      <span key={tag} className="text-xs bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 px-2 py-1 rounded-lg">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Ação */}
+              <div className="pt-2 border-t border-neutral-100 dark:border-neutral-700">
                 <button className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
                   Ver cifra →
                 </button>

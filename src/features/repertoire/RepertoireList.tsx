@@ -62,36 +62,39 @@ export function RepertoireList() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-2">
             Repertório Musical
           </h1>
-          <p className="text-neutral-600">
+          <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400">
             Organize suas músicas por momento da celebração
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2 flex-shrink-0">
           <button 
             onClick={() => exportRepertoireAsPDF(songs, 'repertorio-completo.pdf')}
-            className="flex items-center gap-2 px-4 py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
+            title="Exportar PDF"
           >
-            <Download size={20} />
-            Exportar PDF
+            <Download size={18} className="lg:w-5 lg:h-5" />
+            <span className="hidden sm:inline">Exportar PDF</span>
           </button>
           <button 
             onClick={() => setIsShareModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
+            title="Compartilhar"
           >
-            <Share2 size={20} />
-            Compartilhar
+            <Share2 size={18} className="lg:w-5 lg:h-5" />
+            <span className="hidden sm:inline">Compartilhar</span>
           </button>
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors"
+            title="Nova Música"
           >
-            <Plus size={20} />
-            Nova Música
+            <Plus size={18} className="lg:w-5 lg:h-5" />
+            <span className="hidden sm:inline">Nova Música</span>
           </button>
         </div>
       </div>
@@ -158,19 +161,21 @@ export function RepertoireList() {
                       className="flex items-center justify-between p-3 rounded-xl bg-neutral-50 dark:bg-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-600 cursor-pointer transition-colors group"
                       onClick={() => setSelectedSong(song)}
                     >
-                      <div className="flex-1">
-                        <h5 className="font-medium text-neutral-700 dark:text-neutral-100">{song.title}</h5>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">{song.artist}</p>
+                      <div className="flex-1 min-w-0 pr-2">
+                        <h5 className="font-medium text-neutral-700 dark:text-neutral-100 truncate">{song.title}</h5>
+                        <div className="flex items-center gap-2 mt-1">
+                          <p className="text-sm text-neutral-600 dark:text-neutral-400 truncate flex-1">{song.artist}</p>
+                          <span className="text-xs bg-white dark:bg-neutral-600 text-neutral-700 dark:text-neutral-300 px-2 py-1 rounded-lg border border-neutral-200 dark:border-neutral-500 flex-shrink-0">
+                            {song.tone}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-shrink-0">
                         <FavoriteButton
                           isFavorite={isFavorite(song.id)}
                           onClick={() => toggleFavorite(song.id)}
                           size="sm"
                         />
-                        <span className="text-xs bg-white dark:bg-neutral-600 text-neutral-700 dark:text-neutral-300 px-2 py-1 rounded-lg border border-neutral-200 dark:border-neutral-500">
-                          Tom: {song.tone}
-                        </span>
                       </div>
                     </div>
                   ))}
