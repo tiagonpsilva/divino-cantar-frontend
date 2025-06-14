@@ -268,3 +268,7 @@ gh pr list
 3. Leverage MCP for automated PR creation and reviews
 4. Use GitHub MCP for issue tracking and project management
 5. Deploy using GitHub Actions (when configured)
+```
+
+**Commitlint and Commit Message Guidelines**
+- **os comentários do commit devem ser em pt-br**

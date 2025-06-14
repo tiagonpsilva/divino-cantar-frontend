@@ -1,6 +1,7 @@
 # DivinoCantar
 
 [![GitHub repo](https://img.shields.io/badge/GitHub-tiagonpsilva%2Fdivino--cantar--frontend-blue?logo=github)](https://github.com/tiagonpsilva/divino-cantar-frontend)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?logo=github)](https://tiagonpsilva.github.io/divino-cantar-frontend/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
 
@@ -30,6 +31,17 @@ npm run dev
 ```
 
 3. Acesse http://localhost:5173 (ou a porta indicada no terminal) no seu navegador
+
+## 🌐 Deploy GitHub Pages
+
+O projeto está configurado para deploy automático no GitHub Pages:
+
+**URL da aplicação**: https://tiagonpsilva.github.io/divino-cantar-frontend/
+
+### Deploy automático
+- Push para `main` → Deploy automático via GitHub Actions
+- Workflow configurado em `.github/workflows/deploy.yml`
+- Build otimizado com Vite para produção
 
 ## 🎯 Funcionalidades Implementadas
 
