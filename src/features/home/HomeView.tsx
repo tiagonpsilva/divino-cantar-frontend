@@ -24,7 +24,7 @@ export function HomeView() {
       {/* Welcome Title */}
       <div>
         <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-6">
-          👋🏿 Olá! Paz e bem!
+          👋🏿 Olá! Paz e Bem!
         </h1>
       </div>
 
