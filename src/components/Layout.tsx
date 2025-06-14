@@ -122,7 +122,9 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
                     onClick={() => handleNavigate(item.id)}
                     className={cn(
                       'w-full flex items-center rounded-2xl transition-all duration-200',
-                      isMinimized ? 'justify-center p-3' : 'space-x-3 px-4 py-3',
+                      // Mobile: sempre space-x-3 px-4 py-3, Desktop: depende de isMinimized
+                      'space-x-3 px-4 py-3 lg:space-x-0 lg:px-0 lg:py-0',
+                      isMinimized ? 'lg:justify-center lg:p-3' : 'lg:space-x-3 lg:px-4 lg:py-3',
                       isActive
                         ? 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100 font-medium'
                         : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 hover:text-neutral-700 dark:hover:text-neutral-100'
@@ -134,12 +136,18 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
                         isActive ? item.color : 'text-neutral-400 dark:text-neutral-500'
                       )}
                     />
-                    {!isMinimized && <span>{item.label}</span>}
+                    {/* Mobile: sempre mostrar, Desktop: mostrar apenas se não minimizado */}
+                    <span className={cn(
+                      'block lg:hidden', // Sempre mostrar no mobile
+                      !isMinimized && 'lg:block' // Mostrar no desktop apenas se não minimizado
+                    )}>
+                      {item.label}
+                    </span>
                   </button>
                   
-                  {/* Tooltip para menu minimizado */}
+                  {/* Tooltip para menu minimizado - apenas no desktop */}
                   {isMinimized && (
-                    <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 bg-neutral-900 dark:bg-neutral-700 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+                    <div className="hidden lg:block absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 bg-neutral-900 dark:bg-neutral-700 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
                       {item.label}
                       <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-full">
                         <div className="w-2 h-2 bg-neutral-900 dark:bg-neutral-700 rotate-45"></div>
