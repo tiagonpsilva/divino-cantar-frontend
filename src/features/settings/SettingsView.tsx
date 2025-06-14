@@ -7,28 +7,28 @@ export function SettingsView() {
   const { settings, updateProfile, updateNotifications, updateAppearance, updateAudio, updateBehavior } = useSettings();
   const { success } = useToastContext();
   
-  const handleProfileSave = (field: string, value: string) => {
-    updateProfile({ [field]: value });
+  const handleProfileSave = (field: 'name' | 'email' | 'parish', value: string) => {
+    updateProfile({ [field]: value } as Pick<typeof settings, 'name' | 'email' | 'parish'>);
     success('Perfil atualizado com sucesso!');
   };
   
-  const handleNotificationToggle = (field: string, value: boolean) => {
-    updateNotifications({ [field]: value });
+  const handleNotificationToggle = (field: 'massReminders' | 'repertoireSuggestions' | 'liturgicalUpdates', value: boolean) => {
+    updateNotifications({ [field]: value } as Pick<typeof settings, 'massReminders' | 'repertoireSuggestions' | 'liturgicalUpdates'>);
     success('Configurações de notificação atualizadas!');
   };
   
-  const handleAppearanceChange = (field: string, value: string) => {
-    updateAppearance({ [field]: value });
+  const handleAppearanceChange = (field: 'theme' | 'fontSize', value: string) => {
+    updateAppearance({ [field]: value } as Pick<typeof settings, 'theme' | 'fontSize'>);
     success('Aparência atualizada!');
   };
   
-  const handleAudioChange = (field: string, value: any) => {
-    updateAudio({ [field]: value });
+  const handleAudioChange = (field: 'autoplay' | 'volume', value: any) => {
+    updateAudio({ [field]: value } as Pick<typeof settings, 'autoplay' | 'volume'>);
     success('Configurações de áudio atualizadas!');
   };
   
-  const handleBehaviorChange = (field: string, value: boolean) => {
-    updateBehavior({ [field]: value });
+  const handleBehaviorChange = (field: 'autoSave' | 'confirmDelete', value: boolean) => {
+    updateBehavior({ [field]: value } as Pick<typeof settings, 'autoSave' | 'confirmDelete'>);
     success('Comportamento atualizado!');
   };
 
