@@ -1,7 +1,11 @@
-import { Calendar, Music, TrendingUp, Clock, Star } from 'lucide-react';
+import { useState } from 'react';
+import { Calendar, Music, TrendingUp, Clock, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '../../components/Card';
+import { cn } from '../../lib/utils';
 
 export function HomeView() {
+  const [currentStatIndex, setCurrentStatIndex] = useState(0);
+  
   const quickStats = [
     { label: 'Músicas no repertório', value: '127', icon: Music, color: 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400' },
     { label: 'Missas planejadas', value: '12', icon: Calendar, color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400' },
@@ -20,7 +24,7 @@ export function HomeView() {
       {/* Welcome Title */}
       <div>
         <h1 className="text-2xl lg:text-3xl font-bold text-neutral-700 dark:text-neutral-100 mb-6">
-          👋🏿 Olá!
+          👋🏿 Olá! Paz e bem!
         </h1>
       </div>
 
@@ -61,21 +65,97 @@ export function HomeView() {
         </div>
       </Card>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {quickStats.map((stat, index) => (
-          <Card key={index} hover>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">{stat.label}</p>
-                <p className="text-2xl font-semibold text-neutral-700 dark:text-neutral-100">{stat.value}</p>
+      {/* Quick Stats - Desktop Grid / Mobile Carousel */}
+      <div className="relative">
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {quickStats.map((stat, index) => (
+            <Card key={index} hover>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">{stat.label}</p>
+                  <p className="text-2xl font-semibold text-neutral-700 dark:text-neutral-100">{stat.value}</p>
+                </div>
+                <div className={`p-3 rounded-2xl ${stat.color}`}>
+                  <stat.icon size={24} />
+                </div>
               </div>
-              <div className={`p-3 rounded-2xl ${stat.color}`}>
-                <stat.icon size={24} />
+            </Card>
+          ))}
+        </div>
+
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div className="flex items-center gap-2">
+            {/* Previous Button */}
+            <button
+              onClick={() => setCurrentStatIndex(Math.max(0, currentStatIndex - 1))}
+              disabled={currentStatIndex === 0}
+              className={cn(
+                "p-2 rounded-xl transition-colors",
+                currentStatIndex === 0
+                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-neutral-800"
+              )}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Card Container */}
+            <div className="flex-1 overflow-hidden">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentStatIndex * 100}%)` }}
+              >
+                {quickStats.map((stat, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-1">
+                    <Card hover>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">{stat.label}</p>
+                          <p className="text-2xl font-semibold text-neutral-700 dark:text-neutral-100">{stat.value}</p>
+                        </div>
+                        <div className={`p-3 rounded-2xl ${stat.color}`}>
+                          <stat.icon size={24} />
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                ))}
               </div>
             </div>
-          </Card>
-        ))}
+
+            {/* Next Button */}
+            <button
+              onClick={() => setCurrentStatIndex(Math.min(quickStats.length - 1, currentStatIndex + 1))}
+              disabled={currentStatIndex === quickStats.length - 1}
+              className={cn(
+                "p-2 rounded-xl transition-colors",
+                currentStatIndex === quickStats.length - 1
+                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-neutral-800"
+              )}
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center gap-1.5 mt-4">
+            {quickStats.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentStatIndex(index)}
+                className={cn(
+                  "w-1.5 h-1.5 rounded-full transition-all duration-300",
+                  index === currentStatIndex
+                    ? "w-6 bg-primary-600 dark:bg-primary-400"
+                    : "bg-gray-300 dark:bg-gray-600"
+                )}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Quick Actions */}
@@ -87,7 +167,7 @@ export function HomeView() {
           </div>
           <CardContent>
             <div className="space-y-3">
-              <div className="flex justify-between items-center p-3 bg-neutral-50 dark:bg-neutral-700/50 rounded-xl">
+              <div className="flex justify-between items-center p-3 bg-neutral-100 dark:bg-neutral-700/50 rounded-xl">
                 <div>
                   <p className="font-medium text-neutral-700 dark:text-neutral-100">Domingo - 15º Tempo Comum</p>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">16 de junho, 10h</p>
@@ -96,7 +176,7 @@ export function HomeView() {
                   Ver detalhes
                 </button>
               </div>
-              <div className="flex justify-between items-center p-3 bg-neutral-50 dark:bg-neutral-700/50 rounded-xl">
+              <div className="flex justify-between items-center p-3 bg-neutral-100 dark:bg-neutral-700/50 rounded-xl">
                 <div>
                   <p className="font-medium text-neutral-700 dark:text-neutral-100">Festa de São João</p>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">24 de junho, 19h</p>

@@ -140,7 +140,7 @@ export function PlanningView() {
                     "flex items-center justify-between p-3 rounded-xl transition-colors",
                     item.selected 
                       ? "bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800"
-                      : "bg-neutral-50 dark:bg-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-600"
+                      : "bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   )}>
                     <div className="flex items-center gap-3 flex-1">
                       <input
@@ -273,7 +273,7 @@ export function PlanningView() {
             </CardContent>
           </Card>
 
-          <div className="bg-neutral-50 dark:bg-neutral-700 rounded-xl p-4 mb-6">
+          <div className="bg-neutral-100 dark:bg-neutral-700 rounded-xl p-4 mb-6">
             <div className="flex items-center justify-between mb-2">
               <h4 className="font-medium text-neutral-700 dark:text-neutral-100">Resumo da Celebração</h4>
               <span className="text-sm text-neutral-600 dark:text-neutral-400">

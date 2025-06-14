@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Music, Plus, Share2, ChevronRight, Download } from 'lucide-react';
+import { Music, Plus, Share2, ChevronRight, ChevronLeft, Download } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/Card';
 import { SongModal } from '../../components/SongModal';
 import { ShareModal } from '../../components/ShareModal';
@@ -9,6 +9,7 @@ import { useFavorites } from '../../hooks/useFavorites';
 import { exportRepertoireAsPDF, exportByMoment } from '../../utils/pdfExporter';
 import { mockSongs } from '../../data/mock';
 import { MassMoment } from '../../types';
+import { cn } from '../../lib/utils';
 
 const momentLabels: Record<MassMoment, string> = {
   entrada: 'Entrada',
@@ -49,6 +50,7 @@ export function RepertoireList() {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [selectedSong, setSelectedSong] = useState<any>(null);
   const [songs, setSongs] = useState(mockSongs);
+  const [currentStatIndex, setCurrentStatIndex] = useState(0);
   const { toggleFavorite, isFavorite } = useFavorites();
 
   const songsByMoment = songs.reduce((acc, song) => {
@@ -71,29 +73,114 @@ export function RepertoireList() {
         </p>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="text-center">
-          <p className="text-3xl font-bold text-neutral-700 dark:text-neutral-100">{mockSongs.length}</p>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Total de músicas</p>
-        </Card>
-        <Card className="text-center">
-          <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{Object.keys(songsByMoment).length}</p>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Momentos cobertos</p>
-        </Card>
-        <Card className="text-center">
-          <p className="text-3xl font-bold text-green-600 dark:text-green-400">5</p>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Tons diferentes</p>
-        </Card>
-        <Card className="text-center">
-          <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">3</p>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Artistas</p>
-        </Card>
+      {/* Quick Stats - Desktop Grid / Mobile Carousel */}
+      <div className="relative">
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-4 gap-4">
+          <Card className="text-center">
+            <p className="text-3xl font-bold text-neutral-700 dark:text-neutral-100">{mockSongs.length}</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Total de músicas</p>
+          </Card>
+          <Card className="text-center">
+            <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{Object.keys(songsByMoment).length}</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Momentos cobertos</p>
+          </Card>
+          <Card className="text-center">
+            <p className="text-3xl font-bold text-green-600 dark:text-green-400">5</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Tons diferentes</p>
+          </Card>
+          <Card className="text-center">
+            <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">3</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Artistas</p>
+          </Card>
+        </div>
+
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div className="flex items-center gap-2">
+            {/* Previous Button */}
+            <button
+              onClick={() => setCurrentStatIndex(Math.max(0, currentStatIndex - 1))}
+              disabled={currentStatIndex === 0}
+              className={cn(
+                "p-2 rounded-xl transition-colors",
+                currentStatIndex === 0
+                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-neutral-800"
+              )}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Card Container */}
+            <div className="flex-1 overflow-hidden">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentStatIndex * 100}%)` }}
+              >
+                <div className="w-full flex-shrink-0 px-1">
+                  <Card className="text-center">
+                    <p className="text-3xl font-bold text-neutral-700 dark:text-neutral-100">{mockSongs.length}</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Total de músicas</p>
+                  </Card>
+                </div>
+                <div className="w-full flex-shrink-0 px-1">
+                  <Card className="text-center">
+                    <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{Object.keys(songsByMoment).length}</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Momentos cobertos</p>
+                  </Card>
+                </div>
+                <div className="w-full flex-shrink-0 px-1">
+                  <Card className="text-center">
+                    <p className="text-3xl font-bold text-green-600 dark:text-green-400">5</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Tons diferentes</p>
+                  </Card>
+                </div>
+                <div className="w-full flex-shrink-0 px-1">
+                  <Card className="text-center">
+                    <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">3</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Artistas</p>
+                  </Card>
+                </div>
+              </div>
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={() => setCurrentStatIndex(Math.min(3, currentStatIndex + 1))}
+              disabled={currentStatIndex === 3}
+              className={cn(
+                "p-2 rounded-xl transition-colors",
+                currentStatIndex === 3
+                  ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-neutral-800"
+              )}
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center gap-1.5 mt-4">
+            {[0, 1, 2, 3].map((index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentStatIndex(index)}
+                className={cn(
+                  "w-1.5 h-1.5 rounded-full transition-all duration-300",
+                  index === currentStatIndex
+                    ? "w-6 bg-primary-600 dark:bg-primary-400"
+                    : "bg-gray-300 dark:bg-gray-600"
+                )}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Action Buttons */}
       <div className="flex justify-center">
-        <div className="flex gap-3 p-2 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+        <div className="flex gap-3 p-2 bg-white dark:bg-neutral-800 rounded-xl border border-gray-200 dark:border-neutral-700 shadow">
           <button 
             onClick={() => exportRepertoireAsPDF(songs, 'repertorio-completo.pdf')}
             className="p-3 bg-white dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors shadow-sm"
@@ -157,7 +244,7 @@ export function RepertoireList() {
                   {songs.map((song) => (
                     <div 
                       key={song.id} 
-                      className="flex items-center justify-between p-3 rounded-xl bg-neutral-50 dark:bg-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-600 cursor-pointer transition-colors group"
+                      className="flex items-center justify-between p-3 rounded-xl bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 cursor-pointer transition-colors group"
                       onClick={() => setSelectedSong(song)}
                     >
                       <div className="flex-1 min-w-0 pr-2">

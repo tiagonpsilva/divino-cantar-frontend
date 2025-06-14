@@ -76,11 +76,11 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
   const mainMargin = isMinimized ? 'lg:ml-16' : 'lg:ml-72';
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 transition-colors">
+    <div className="min-h-screen bg-gray-100 dark:bg-neutral-900 transition-colors">
       {/* Container principal com padding bottom no mobile para o bottom nav */}
       <div className="lg:min-h-screen pb-16 lg:pb-0">
       {/* Header */}
-      <header className="bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 sticky top-0 z-40 h-20 overflow-visible">
+      <header className="bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-neutral-700 sticky top-0 z-40 h-20 overflow-visible shadow">
         <div className="flex items-center justify-between px-4 h-full">
           {/* Left side - Menu button (removido para usar bottom nav no mobile) */}
           <div className="flex items-center w-1/4">
@@ -123,7 +123,7 @@ export function Layout({ children, currentView, onNavigate }: LayoutProps) {
       {/* Sidebar - apenas no desktop */}
       <aside
         className={cn(
-          'hidden lg:fixed inset-y-0 left-0 z-50 bg-white dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700 transform transition-all duration-300 ease-in-out lg:block',
+          'hidden lg:fixed inset-y-0 left-0 z-50 bg-white dark:bg-neutral-800 border-r border-neutral-100 dark:border-neutral-700 transform transition-all duration-300 ease-in-out lg:block shadow-sm',
           sidebarWidth,
           'pt-0'
         )}

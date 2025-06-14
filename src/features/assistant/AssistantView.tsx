@@ -282,7 +282,7 @@ export function AssistantView() {
                   'flex-shrink-0 w-8 h-8 lg:w-10 lg:h-10 rounded-2xl flex items-center justify-center',
                   message.type === 'user' 
                     ? 'bg-primary-600 text-white' 
-                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400'
+                    : 'bg-gray-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-400'
                 )}>
                   {message.type === 'user' ? <User size={16} className="lg:w-5 lg:h-5" /> : <Bot size={16} className="lg:w-5 lg:h-5" />}
                 </div>
@@ -295,7 +295,7 @@ export function AssistantView() {
                     'inline-block p-3 lg:p-4 rounded-2xl max-w-2xl',
                     message.type === 'user'
                       ? 'bg-primary-600 text-white'
-                      : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100'
+                      : 'bg-gray-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 border border-gray-300 dark:border-neutral-600'
                   )}>
                     <p className="whitespace-pre-wrap">{message.content}</p>
                     <p className={cn(
@@ -401,10 +401,10 @@ export function AssistantView() {
 
             {isTyping && (
               <div className="flex gap-3 lg:gap-4">
-                <div className="flex-shrink-0 w-8 h-8 lg:w-10 lg:h-10 rounded-2xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <div className="flex-shrink-0 w-8 h-8 lg:w-10 lg:h-10 rounded-2xl bg-gray-200 dark:bg-neutral-700 flex items-center justify-center">
                   <Bot size={16} className="lg:w-5 lg:h-5 text-neutral-600 dark:text-neutral-400" />
                 </div>
-                <div className="bg-neutral-100 dark:bg-neutral-700 p-3 lg:p-4 rounded-2xl">
+                <div className="bg-gray-200 dark:bg-neutral-700 p-3 lg:p-4 rounded-2xl border border-gray-300 dark:border-neutral-600">
                   <div className="flex gap-1">
                     <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                     <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -431,7 +431,7 @@ export function AssistantView() {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Digite sua pergunta sobre repertório, liturgia ou música..."
-                className="flex-1 px-3 py-2 lg:px-4 lg:py-3 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm lg:text-base"
+                className="flex-1 px-3 py-2 lg:px-4 lg:py-3 bg-gray-100 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 placeholder-neutral-600 dark:placeholder-neutral-400 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm lg:text-base border border-gray-200 dark:border-neutral-600"
                 disabled={isTyping}
               />
               <button
@@ -446,7 +446,7 @@ export function AssistantView() {
         </div>
 
         {/* Sidebar com sugestões à direita - apenas desktop */}
-        <div className="hidden lg:block w-72 border-l border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 p-4 overflow-y-auto">
+        <div className="hidden lg:block w-72 border-l border-gray-200 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-800/50 p-4 overflow-y-auto">
           <div className="sticky top-4">
             <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-100 mb-4">
               💡 Sugestões Rápidas
@@ -456,7 +456,7 @@ export function AssistantView() {
                 <button
                   key={question.id}
                   onClick={() => handleSuggestedQuestion(question.text)}
-                  className="w-full text-left p-3 bg-white dark:bg-neutral-700 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors group"
+                  className="w-full text-left p-3 bg-white dark:bg-neutral-700 rounded-xl hover:bg-gray-100 dark:hover:bg-neutral-600 transition-colors group border border-gray-200 dark:border-neutral-600 shadow-sm"
                 >
                   <div className="flex items-start gap-3">
                     <div className="p-1.5 bg-neutral-100 dark:bg-neutral-600 rounded-lg group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 transition-colors">

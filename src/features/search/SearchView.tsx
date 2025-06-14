@@ -45,7 +45,7 @@ export function SearchView() {
           placeholder="Buscar por título, artista ou letra..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-neutral-700 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400"
+          className="w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-neutral-700 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 shadow"
         />
       </div>
 
@@ -63,7 +63,7 @@ export function SearchView() {
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
                 selectedMoment === moment.value
                   ? 'bg-primary-600 text-white'
-                  : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                  : 'bg-white dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-gray-50 dark:hover:bg-neutral-600 border border-gray-200 dark:border-neutral-600 shadow-sm'
               }`}
             >
               {moment.label}

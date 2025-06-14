@@ -10,7 +10,7 @@
   }
   
   body {
-    @apply antialiased;
+    @apply antialiased bg-gray-100 dark:bg-neutral-900;
   }
 
   h1, h2, h3, h4, h5, h6 {
