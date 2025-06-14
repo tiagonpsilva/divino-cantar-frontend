@@ -120,10 +120,14 @@ export function useSettings() {
   // Apply theme on load
   useEffect(() => {
     if (!isLoading) {
-      applyTheme(settings.theme);
-      // Also update the legacy theme storage for Layout compatibility
-      if (settings.theme !== 'auto') {
-        localStorage.setItem('theme', settings.theme);
+      // Only apply theme if settings were actually loaded from storage
+      const savedSettings = localStorage.getItem(SETTINGS_KEY);
+      if (savedSettings) {
+        applyTheme(settings.theme);
+        // Also update the legacy theme storage for Layout compatibility
+        if (settings.theme !== 'auto') {
+          localStorage.setItem('theme', settings.theme);
+        }
       }
     }
   }, [settings.theme, isLoading]);
