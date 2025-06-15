@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Music, Plus, Share2, ChevronRight, ChevronLeft, Download } from 'lucide-react';
+import { Music, Plus, Share2, ChevronRight, ChevronLeft, Download, FileText } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/Card';
 import { SongModal } from '../../components/SongModal';
 import { ShareModal } from '../../components/ShareModal';
 import { SongDetailModal } from '../../components/SongDetailModal';
+import { ChordModal } from '../../components/ChordModal';
 import { FavoriteButton } from '../../components/FavoriteButton';
 import { useFavorites } from '../../hooks/useFavorites';
 import { exportRepertoireAsPDF, exportByMoment } from '../../utils/pdfExporter';
@@ -51,6 +52,7 @@ export function RepertoireList() {
   const [selectedSong, setSelectedSong] = useState<any>(null);
   const [songs, setSongs] = useState(mockSongs);
   const [currentStatIndex, setCurrentStatIndex] = useState(0);
+  const [songForChords, setSongForChords] = useState<any>(null);
   const { toggleFavorite, isFavorite } = useFavorites();
 
   const songsByMoment = songs.reduce((acc, song) => {
@@ -257,6 +259,16 @@ export function RepertoireList() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSongForChords(song);
+                          }}
+                          className="p-1.5 text-neutral-500 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-lg transition-colors"
+                          title="Ver cifra"
+                        >
+                          <FileText size={16} />
+                        </button>
                         <FavoriteButton
                           isFavorite={isFavorite(song.id)}
                           onClick={() => toggleFavorite(song.id)}
@@ -305,6 +317,17 @@ export function RepertoireList() {
           song={selectedSong}
           onToggleFavorite={toggleFavorite}
           isFavorite={isFavorite(selectedSong.id)}
+        />
+      )}
+      
+      {/* Chord Modal */}
+      {songForChords && (
+        <ChordModal
+          isOpen={!!songForChords}
+          onClose={() => setSongForChords(null)}
+          song={songForChords}
+          isFavorite={isFavorite(songForChords.id)}
+          onToggleFavorite={toggleFavorite}
         />
       )}
     </div>

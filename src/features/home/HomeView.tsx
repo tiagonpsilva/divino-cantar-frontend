@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, Music, TrendingUp, Clock, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Music, TrendingUp, Users, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '../../components/Card';
 import { cn } from '../../lib/utils';
 
@@ -8,9 +8,9 @@ export function HomeView() {
   
   const quickStats = [
     { label: 'Músicas no repertório', value: '127', icon: Music, color: 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400' },
+    { label: 'Artistas únicos', value: '18', icon: Users, color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400' },
     { label: 'Missas planejadas', value: '12', icon: Calendar, color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400' },
     { label: 'Mais tocada', value: 'Acolhe Senhor', icon: TrendingUp, color: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' },
-    { label: 'Tempo de uso', value: '45h', icon: Clock, color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400' },
   ];
 
   const recentActivities = [

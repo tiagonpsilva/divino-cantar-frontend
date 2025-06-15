@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { X, Play, Pause, Share2, Music, User, Tag, Clock, FileText, RotateCcw, ChevronUp, ChevronDown } from 'lucide-react';
+import { X, Play, Pause, Share2, Music, User, Tag, Clock, FileText, RotateCcw, ChevronUp, ChevronDown, Guitar, Piano } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { FavoriteButton } from './FavoriteButton';
 import { transposeChordLine, getSemitonesFromKeys, shouldUseFlats } from '../utils/chordTransposer';
+import { ChordModal } from './ChordModal';
 
 interface Song {
   id: string;
@@ -25,11 +26,18 @@ interface SongDetailModalProps {
 
 const tones = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
+const instruments = [
+  { value: 'violao', label: 'Violão', icon: Guitar },
+  { value: 'teclado', label: 'Teclado', icon: Piano },
+];
+
 export function SongDetailModal({ isOpen, onClose, song, onToggleFavorite, isFavorite }: SongDetailModalProps) {
   const [activeTab, setActiveTab] = useState<'lyrics' | 'chords'>('lyrics');
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedTone, setSelectedTone] = useState(song.tone);
   const [fontSize, setFontSize] = useState('base');
+  const [showChordModal, setShowChordModal] = useState(false);
+  const [selectedInstrument, setSelectedInstrument] = useState('violao');
 
   if (!isOpen) return null;
 
@@ -223,6 +231,33 @@ export function SongDetailModal({ isOpen, onClose, song, onToggleFavorite, isFav
                 </div>
               </div>
             )}
+            
+            {/* Instrument selection */}
+            {activeTab === 'chords' && (
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Instrumento:</span>
+                <div className="flex gap-1">
+                  {instruments.map(instrument => {
+                    const Icon = instrument.icon;
+                    return (
+                      <button
+                        key={instrument.value}
+                        onClick={() => setSelectedInstrument(instrument.value)}
+                        className={cn(
+                          'flex items-center gap-1 px-3 py-1 rounded-lg text-sm font-medium transition-colors',
+                          selectedInstrument === instrument.value
+                            ? 'bg-primary-600 text-white'
+                            : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                        )}
+                      >
+                        <Icon size={14} />
+                        {instrument.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Font size controls */}
             <div className="flex items-center gap-3">
@@ -284,6 +319,17 @@ export function SongDetailModal({ isOpen, onClose, song, onToggleFavorite, isFav
           )}
         </div>
 
+        {/* Action Button */}
+        <div className="flex-shrink-0 p-6 border-t border-gray-200 dark:border-neutral-700">
+          <button
+            onClick={() => setShowChordModal(true)}
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors font-medium"
+          >
+            <Music size={20} />
+            Ver Cifra Completa
+          </button>
+        </div>
+        
         {/* Tags */}
         {song.tags.length > 0 && (
           <div className="flex-shrink-0 p-6 pt-0">
@@ -301,6 +347,17 @@ export function SongDetailModal({ isOpen, onClose, song, onToggleFavorite, isFav
           </div>
         )}
       </div>
+      
+      {/* Chord Modal */}
+      {showChordModal && (
+        <ChordModal
+          isOpen={showChordModal}
+          onClose={() => setShowChordModal(false)}
+          song={song}
+          isFavorite={isFavorite}
+          onToggleFavorite={onToggleFavorite}
+        />
+      )}
     </div>
   );
 }
